@@ -4,6 +4,8 @@ import helmet from "helmet";
 import {createServer} from "vite";
 import express from "express";
 import http from "node:http";
+import * as fs from "node:fs";
+import * as vosk from 'vosk';
 
 
 
@@ -22,12 +24,20 @@ import http from "node:http";
  */
 export class Application {
     // *** Configuration: ***
-    port = 3000
+    port = 3000;
+    voskModelPath = "vosk-model";
 
     // **** State: ****
     server?: http.Server;
+    voskModel: typeof vosk.Model;
 
     constructor() {
+
+        //Create vosk model:
+        if (!fs.existsSync(this.voskModelPath)) {
+            throw new Error("Vosk model does not exist. Please download the model from https://alphacephei.com/vosk/models and unpack under " + this.voskModelPath);
+        }
+        this.voskModel = new vosk.Model(this.voskModelPath);
 
         // Create and start web server:
         (async () => {
