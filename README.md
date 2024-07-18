@@ -10,5 +10,5 @@ Zählung zur Erfassung des Durchgangsverkehrs. Client/Server Anwendung auf nodej
 git clone https://github.com/bogi-hw/zedu.git
 cd zedu
 npm install --ignore-scripts
-npn run dev
+npm run dev
 ```
